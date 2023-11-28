@@ -1,24 +1,27 @@
 <?php
-    include_once("../dbConnection/mysqlconfig_connection.php");
+$query= "<<UPDATE SELECT QUERY>>";
+$query = "SELECT * FROM tblsubjects
+          LEFT JOIN tblsyllabus ON tblsyllabus.subject_id = tblsubjects.subjectid";
 
-    $query = "SELECT * FROM tblsubject";
-    $result = mysqli_query($dbc, $query);
+$result = mysqli_query($abc, $query);
 
-    if ($result) {
-        if (mysqli_num_rows($result) > 0) {
+if ($result) {
+    while ($row = mysqli_fetch_assoc($result)) {
+        echo "Subject ID: " . $row['subject_id'] . "<br>";
+        echo "Subject Code"  . $row['subject_code'] . "<br>";
+        echo "Subject Name: " . $row['subject_name'] . "<br>";
+        echo "Syllabus ID: " . $row['syllabus_id'] . "<br>";
+        echo "Syllabus Code: " . $row['syllabus_code'] . "<br>";
+        echo "Syllabus Author: " . $row['syllabus_author'] . "<br>";
 
-            while ($row = mysqli_fetch_assoc($result)) {
-                echo "Subject ID: " . $row['subject_id'] . "<br>";
-                echo "Subject Code: " . $row['subject_code'] . "<br>";
-                echo "Subject Name: " . $row['subject_name'] . "<br><br>";
-            }
-        } else {
-            echo "No records found in the table.";
-        }
-    } else {
 
-        echo "Error: " . mysqli_error($dbc);
+        echo "<hr>";
     }
-    mysqli_close($dbc);
+} else {
+
+    echo "Error: " . $query . "<br>" . mysqli_error($abc);
+}
+
 ?>
+
 
